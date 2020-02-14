@@ -130,7 +130,7 @@ http://www.templatemo.com/tm-509-hydro
   }
 
   .overlay {
-
+    background:linear-gradient(to right, #1f1f1f, #000000);
     opacity: 0.7;
     position: absolute;
     width: 100%;
@@ -140,6 +140,15 @@ http://www.templatemo.com/tm-509-hydro
     left: 0;
   }
 
+   .overlay2 {
+    opacity: 0.7;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
   section {
     padding-top: 80px;
     padding-bottom: 80px;
@@ -268,7 +277,7 @@ http://www.templatemo.com/tm-509-hydro
   -----------------------------------------*/
 
   #home {
-    background: url('../images/home-bg.jpg') no-repeat center center;
+    background: url('../images/bg.jpg') no-repeat center center;
     background-size: cover;
     vertical-align: middle;
     display: -webkit-box;
@@ -362,39 +371,58 @@ http://www.templatemo.com/tm-509-hydro
       Nouveautées          
   -----------------------------------------*/
 
-  .slick-dots {
-    text-align: center;
-    margin: 0 0 10px 0;
-    padding: 0;
-  }
-  .slick-dots li {
-      display:inline-block;
-      margin-left: 4px;
-      margin-right: 4px;
-  }
-
+.slick-dots {
+  text-align: center;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+.slick-dots li {
+  display:inline-block;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.slick-active button {
+  background-color:black;
+}
+.slick-dots button {
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+  background-color:#999;
+  border:none;
+  width: 15px;
+  height: 15px;
+  border-radius:50%;
+}
+.slick-dots button:hover{
+  background-color: black;
+}
+.slick-slide img{
+  padding: 10px;
+}
+  
   /* Custom Arrow */
-  .prev{
-    color: #999;
-    position: absolute;
-    top: 38%;
-    left: -2em;
-    font-size: 1.5em;
-      :hover{
-        cursor: pointer;
-        color: black;
-      }
-  }
-  .next{
-    color: #999;
-    position: absolute;
-    top: 38%;
-    right: -2em;
-    font-size: 1.5em;
-    /* :hover{
-        cursor: pointer;
-        color: black;
-      } */
+.prev{
+  color: #999;
+  position: absolute;
+  top: 38%;
+  left: -2em;
+  font-size: 1.5em;
+}
+.prev:hover{
+  cursor: pointer;
+  color: black;
+}
+.next{
+  color: #999;
+  position: absolute;
+  top: 38%;
+  right: -2em;
+  font-size: 1.5em;
+}
+.next:hover{
+    cursor: pointer;
+    color: black;
   }
   
   @media screen and (max-width: 800px) {
@@ -615,8 +643,12 @@ http://www.templatemo.com/tm-509-hydro
     font-weight: 500;
   }
 
-
-
+  /*---------------------------------------
+     INFORMATION CONTACT            
+  -----------------------------------------*/
+.contact_information{
+  font-size: 20px;
+}
   /*---------------------------------------
      FOOTER              
   -----------------------------------------*/
