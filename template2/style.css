@@ -7798,7 +7798,7 @@ dd {
 img {
   height: auto;
   max-width: 100%;
-  margin-top: -70px; 
+  margin-top: -5%; 
 }
 table {
   margin: 0 0 20px;
@@ -17279,6 +17279,7 @@ a:focus {
   display: inline-block;
   margin: 0 -15px;
   padding: 34px 15px 0 30px;
+  width: 100%;
 }
 @media (max-width: 767px) {
   .detailed-box .post-center-content {
