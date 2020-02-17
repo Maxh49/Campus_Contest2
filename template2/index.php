@@ -221,7 +221,7 @@
         <!-- End: Meet Staff -->
         
  <!-- Start: Footer -->
-        <footer class="site-footer">
+        <footer class="site-footer" id="contact">
             <div class="container">
                 <div id="footer-widgets">
                     <div class="row">
@@ -248,7 +248,7 @@
                                 </address>
                             </div>
                         </div>
-                        <div class="col-md-2 col-sm-6 widget-container">
+                        <div class="col-md-3 col-md-offset-1 col-sm-6 widget-container">
                             <div id="nav_menu-2" class="widget widget_nav_menu">
                         
                                 <h3 class="footer-widget-title">Horaire</h3>
