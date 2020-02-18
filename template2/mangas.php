@@ -1,3 +1,10 @@
+<?php
+$pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
+$stmt = $pdo->prepare("SELECT * FROM books WHERE type ='manga'");
+$stmt->execute();
+$data = $stmt->fetchAll();
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
     
@@ -44,7 +51,7 @@
                             <div class="filter-options margin-list">
                                 <div class="row">                                            
                                     <div class="col-md-9 col-sm-3">
-                                        <input class="form-control" type="text" placeholder="Rechercher" aria-label="Search">
+                                        <input id="myInput" onkeyup="myFunction()" class="form-control" type="text" placeholder="Rechercher par titre ..." aria-label="Search">
                                     </div>
                                     <div class="col-md-3 col-sm-3">
                                         <select name="orderby">
@@ -56,30 +63,41 @@
                                 </div>
                             </div>
                             <div class="booksmedia-fullwidth">
-                                <ul>
-                                    <li>
-                                        <figure>
-                                            <a href="mangas_details.php"><img src="images/books-media/layout-3/books-media-layout3-01.jpg" alt="Book"></a>
-                                            <figcaption>
-                                                <header>
-                                                    <h4><a href="books-media-detail-v2.html">The Great Gatsby</a></h4>
-                                                    <p><strong>Author:</strong>  F. Scott Fitzgerald</p>
-                                                    <p><strong>ISBN:</strong>  9781581573268</p>
-                                                </header>
-                                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. Pellentesque dolor turpis, pulvinar varius.</p>
-                                                <div class="actions">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="mangas_details.php" target="_blank" data-toggle="blog-tags" data-placement="top" title="Réserver">
-                                                                9,99 € <i class="fa fa-shopping-cart"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </figcaption>
-                                        </figure>                                                
-                                    </li>
-                                </ul>
+                            <?php
+                                foreach ($data as $row) {
+                                    // $length = strlen($row['title']);
+                                    // if ($length> 30){
+                                    //     $title_concac = substr($row['title'].' ...', 0, 30); 
+                                    // }
+                                    $resume_concac = substr($row['resume'], 0, 160); 
+                                    
+                                   echo "<ul class='myTable'>
+                                        <li>
+                                            <figure>
+                                                <a href=mangas_details.php?id=".$row['id']."><img src='".$row['url_picture']."' alt='Book'></a>
+                                                <figcaption>
+                                                    <header>
+                                                        <h4 small><a href=mangas_details.php?id=".$row['id'].">".$row['title']."</a></h4 small>
+                                                        <p><strong>Author: </strong>"  .$row['author']."</p>
+                                                        <p><strong>ISBN: </strong>"  .$row['isbn']."</p>
+                                                        </br>
+                                                    </header>
+                                                    <p>".$resume_concac.' ...'."</p>
+                                                    <div class='actions'>
+                                                        <ul>
+                                                            <li>
+                                                                <a href='mangas_details.php' target='_blank' data-toggle='blog-tags' data-placement='top' title='Réserver'>
+                                                                    ".$row['price']." € <i class='fa fa-shopping-cart'></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </figcaption>
+                                            </figure>                                                
+                                        </li>
+                                    </ul>";
+                                }
+                                ?>
                             </div>
                         </div>
                                     

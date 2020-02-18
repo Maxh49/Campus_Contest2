@@ -7796,10 +7796,11 @@ dd {
   margin: 0 15px 20px;
 }
 img {
-  height: auto;
+  height: 100%;
   max-width: 100%;
   margin-top: -6%; 
 }
+
 table {
   margin: 0 0 20px;
   width: 100%;
@@ -16154,7 +16155,7 @@ a:focus {
 --------------------------------------------------------------*/
 .books-media-list .search-filters,
 .books-media-gird .search-filters,
-.booksmedia-detail-main .search-filters,
+.-detail-main .search-filters,
 .books-full-width .search-filters {
   margin: 0 0 100px 0;
 }
@@ -17000,12 +17001,15 @@ a:focus {
   }
 }
 .booksmedia-fullwidth img {
+  height: 100vh;
+  max-height: 550px;
   width: 100%;
 }
 .booksmedia-fullwidth ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: inline;
 }
 .booksmedia-fullwidth ul li {
   border: 5px solid #f3f3f3;
@@ -17013,7 +17017,7 @@ a:focus {
   margin: 0 26px 30px 0;
   position: relative;
   vertical-align: top;
-  width: 31.5%;
+  width: 30.5%;
 }
 @media (min-width: 768px) and (max-width: 1199px) {
   .booksmedia-fullwidth ul li {
@@ -17055,7 +17059,8 @@ a:focus {
   bottom: 0;
   width: 100%;
   z-index: 15;
-  height: 275px;
+  height: 100vh;
+  max-height: 309px;
   transform: translate3d(0px, 59%, 0px);
   transition: transform 0.35s ease 0s;
 }
@@ -17068,7 +17073,7 @@ a:focus {
   }
 }
 .booksmedia-fullwidth ul li figure figcaption header {
-  margin-bottom: 13px;
+  margin-bottom: 23px;
 }
 .booksmedia-fullwidth ul li figure figcaption h4 {
   margin-bottom: 7px;
@@ -19333,3 +19338,10 @@ a:focus {
     color: #ce3232;
     font-size: 25px;
   }
+
+.img2 img {
+  max-height: 550px;
+  height: 100vh;
+  max-width: 100%;
+  margin-top: -6%; 
+}

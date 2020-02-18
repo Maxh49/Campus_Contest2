@@ -7,16 +7,16 @@
                                 <h3 class="footer-widget-title">À propos de la Librairie</h3>
                                 <span class="underline left"></span>
                                 <div class="textwidget">
-                                    Le principe de notre site de vente de mangas et bandes-dessinée repose sur l'utilisation de commandes à travers un site doté d'une base de données bibliographiques d'un millier de références, d'une plate-forme logistique avec un stock de près de 50 000 références.
+                                    Le principe de notre site de vente de mangas et bandes-dessinées repose sur l'utilisation de commandes à travers un site doté d'une base de données bibliographiques d'un millier de références, d'une plate-forme logistique avec un stock de près de 50 000 références.
                                 </div>
                                 <address>
                                     <div class="info">
                                         <i class="fa fa-location-arrow"></i>
-                                        <span>1600 Pennsylvania Ave NW, Washington, DC 20500, États-Unis.</span>
+                                        <span>9 place du Ralliement, 49100 Angers, France.</span>
                                     </div>
                                     <div class="info">
                                         <i class="fa fa-envelope"></i>
-                                        <span><a href="mailto:support@libraria.com">manga++@gmail.com</a></span>
+                                        <span><a href="mailto:support@manga.fr">info@manga.fr</a></span>
                                     </div>
                                     <div class="info">
                                         <i class="fa fa-phone"></i>
@@ -28,7 +28,7 @@
                         <div class="col-md-3 col-md-offset-1 col-sm-6 widget-container">
                             <div id="nav_menu-2" class="widget widget_nav_menu">
                         
-                                <h3 class="footer-widget-title">Horaire</h3>
+                                <h3 class="footer-widget-title">Horaires</h3>
                                 <span class="underline left"></span>
                                 <div class="timming-text-widget">
                                     <time datetime="2017-02-13">Lun-Mar: 9h - 21h</time>
@@ -46,14 +46,18 @@
                                 <div id="twitter-feed">
                                     <ul>
                                         <li>
-                                            <p><a href="#">@Manga++</a> Nous avons reçu le nouveau tome de Naruto venez le commandez. <a href="index.php">manga++.com</a></p>
+                                            <p><a href="#">@Manga++</a> Nous avons reçu le nouveau tome de Naruto venez le commandez. <a href="index.php">manga++.fr</a></p>
                                         </li>
                                         <li>
-                                            <p><a href="#">@Manga++</a> Un beau ciel bleu est prévu dans 2 jours, commandez votre manga ou bd à temps pour le lire dehors ! <a href="index.php">manga++.com</a></p>
+                                            <p><a href="#">@Manga++</a> Un beau ciel bleu est prévu dans 2 jours, commandez votre manga ou bd à temps pour le lire dehors ! <a href="index.php">manga++.fr</a></p>
                                         </li>
                                     </ul>
                                 </div>
                             </div>          
+                        </div>
+                        <div class="mentions">
+                            <p>© 2020 Manga++. All rights reserved.</p>
+                            <p><a href="mentions_legales.php">Mentions légales</a></p>
                         </div>
                     </div>
                 </div>   
