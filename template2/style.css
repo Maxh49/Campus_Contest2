@@ -7798,7 +7798,7 @@ dd {
 img {
   height: auto;
   max-width: 100%;
-  margin-top: -5%; 
+  margin-top: -6%; 
 }
 table {
   margin: 0 0 20px;
@@ -17279,7 +17279,6 @@ a:focus {
   display: inline-block;
   margin: 0 -15px;
   padding: 34px 15px 0 30px;
-  width: 100%;
 }
 @media (max-width: 767px) {
   .detailed-box .post-center-content {
@@ -19328,4 +19327,9 @@ a:focus {
     border-radius: 100px;
     color: #ffffff;
     margin-top: 20px;
+  }
+  .fa-user:before {
+    content: "\f007";
+    color: #ce3232;
+    font-size: 25px;
   }
