@@ -1,5 +1,13 @@
 # Campus_Contest2
 
+## Membres du groupe :
+* Charpentier Romain
+* Clochard Mathieu
+* Cunniet Eric
+* Goronflot Jimmy
+* Goujon cholet Corentin
+* Hacault Maxence
+
 ## Présentation du projet 
 
 ### Création d’un site de location de mangas et de Bandes-dessinées pour Mr N’Guyen, où l'administrateur du site pourra :
@@ -35,3 +43,5 @@
 
 ### Éditeur de texte en commun
 * Google docs  
+
+-----------------
