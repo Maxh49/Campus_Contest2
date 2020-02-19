@@ -1,7 +1,6 @@
 # Campus_Contest2
-----------------------------------
+
 ## Présentation du projet 
----------------------
 
 ### Création d’un site de location de mangas et de Bandes-dessinées pour Mr N’Guyen, où l'administrateur du site pourra :
     
