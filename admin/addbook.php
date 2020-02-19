@@ -1,5 +1,14 @@
 <?php
 session_start();
+$pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
+$data_admin = $pdo->prepare("SELECT * FROM clients WHERE address_mail = :address_mail");
+$data_admin->bindParam(':address_mail', $_SESSION['email'], PDO::PARAM_STR);
+$data_admin->execute();
+if($data_admin->fetch()["salaried"] == false){
+    header("Location: /index.php");
+}
+?>
+<?php
     $pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
         if(isset($_POST['submit'])){
             $stmt = $pdo->prepare("SELECT isbn FROM books WHERE isbn=:isbn");

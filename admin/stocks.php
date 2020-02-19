@@ -1,11 +1,20 @@
 <?php
+session_start();
 $pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
-$stmt = $pdo->prepare("SELECT * FROM bookings");
+$data_admin = $pdo->prepare("SELECT * FROM clients WHERE address_mail = :address_mail");
+$data_admin->bindParam(':address_mail', $_SESSION['email'], PDO::PARAM_STR);
+$data_admin->execute();
+$data_final = $data_admin->fetch();
+if($data_final["salaried"] == false){
+    header("Location: /clients.php");
+}
+?>
+<?php
+$pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
+$stmt = $pdo->prepare("SELECT * FROM books");
 $stmt->execute();
 $data = $stmt->fetchAll();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,12 +54,12 @@ $data = $stmt->fetchAll();
 
 <body class="animsition">
     <div class="page-wrapper">
-        <!-- HEADER MOBILE-->
-        <header class="header-mobile d-block d-lg-none">
+               <!-- HEADER MOBILE-->
+               <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.php">
+                        <a class="logo" href="clients.php">
                             <img src="images/icon/logo.png" alt="Manga ++" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
@@ -87,7 +96,7 @@ $data = $stmt->fetchAll();
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="index.php">
+                <a href="clients.php">
                     <img src="images/icon/logo.png" alt="Manga ++" />
                     Manga ++
                 </a>
@@ -96,14 +105,14 @@ $data = $stmt->fetchAll();
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li>
-                            <a href="index.php">
+                            <a href="clients.php">
                                 <i class="fas fa-user-md"></i>Gestion Clients</a>
                         </li>
-                        <li>
+                        <li class="active has-sub">
                             <a href="stocks.php">
                                 <i class="fas fa-book"></i>Gestion des stocks</a>
                         </li>
-                        <li class="active has-sub">
+                        <li>
                             <a href="emprunts.php">
                                 <i class="fas fa-book"></i>Gestion des emprunts</a>
                         </li>
@@ -113,11 +122,10 @@ $data = $stmt->fetchAll();
         </aside>
         <!-- END MENU SIDEBAR-->
 
-
         <!-- PAGE CONTAINER-->
         <div class="page-container">
             <!-- HEADER DESKTOP-->
-            <header class="header-desktop">
+<header class="header-desktop">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
@@ -125,43 +133,27 @@ $data = $stmt->fetchAll();
                             <div class="header-button">
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
-                                        <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                        </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">john doe</a>
+                                            <a class="js-acc-btn" href="#"><?php echo $data_final["first_name"]." ".$data_final["last_name"];?></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
-                                                <div class="image">
-                                                    <a href="#">
-                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                                    </a>
-                                                </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">john doe</a>
+                                                        <a href="#"><?php echo $data_final["first_name"]." ".$data_final["last_name"];?></a>
                                                     </h5>
-                                                    <span class="email">johndoe@example.com</span>
+                                                    <span class="email"><?php echo $data_final["address_mail"];?></span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                                    <a href="../index.php?out=true">
+                                                        <i class="zmdi zmdi-account"></i>Mes informations</a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                                <a href="../index.php?out=true">
+                                                    <i class="zmdi zmdi-power"></i>Déconnexion</a>
                                             </div>
                                         </div>
                                     </div>
@@ -183,7 +175,7 @@ $data = $stmt->fetchAll();
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">Gestion des emprunts</h3>
+                                <h3 class="title-5 m-b-35">Gestion des stocks</h3>
                                 <div class="table-data__tool">
                                     <div class="table-data__tool-left">
                                     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par titre ..." title="Type in a name">
@@ -196,43 +188,49 @@ $data = $stmt->fetchAll();
                                 </div>
                             </div>
                                 <div class="col-md-12">
+                                    
                                     <div class="table-responsive table--no-card m-b-30">
                                         <table class="table table-borderless table-striped table-earning" id="myTable">
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th>Client</th>
-                                                    <th>Titre du livre</th>
-                                                    <th>Date début</th>
-                                                    <th>Date fin</th>
+                                                    <th>ISBN</th>
+                                                    <th>Titre</th>
+                                                    <th>Auteur</th>
+                                                    <th>Année</th>
+                                                    <th>Type</th>
+                                                    <th>Nb copies</th>
+                                                    <th>Prix</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <?php
-                                                foreach ($data as $row) {
-                                                    $stmt_client = $pdo->prepare("SELECT * FROM clients WHERE id = ".$row['clients_id']);
-                                                    $stmt_client->execute();
-                                                    $data_client = $stmt_client->fetch();
-                                                    $stmt_book = $pdo->prepare("SELECT * FROM books WHERE id = ".$row['books_id']);
-                                                    $stmt_book->execute();
-                                                    $data_book = $stmt_book->fetch();
-                                                    echo '<tr>
-                                                        <td>
-                                                            <div class="table-data-feature">
-                                                            <a href=removebooking.php?id='.$row['id'].'>
-                                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Supprimer">
-                                                                    <i class="zmdi zmdi-delete"></i>
-                                                                </button>
-                                                            </a>
-                                                            </div>
-                                                        </td>
-                                                        <td>'.$data_client['first_name']." ".$data_client['last_name'].'</td>
-                                                        <td>'.$data_book['title'].'</td>
-                                                        <td>'.$row['start'].'</td>
-                                                        <td>'.$row['end'].'</td>
-                                                    </tr>';
-                                                }
-                                            ?>
+                                                <?php
+                                                    foreach ($data as $row) {
+                                                        echo '<tr>
+                                                            <td>
+                                                                <div class="table-data-feature">
+                                                                <a href=modifybook.php?id='.$row['id'].'>
+                                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Modifier">
+                                                                        <i class="zmdi zmdi-edit"></i>
+                                                                    </button>
+                                                                </a>
+                                                                <a href=removebook.php?id='.$row['id'].'>
+                                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Supprimer">
+                                                                        <i class="zmdi zmdi-delete"></i>
+                                                                    </button>
+                                                                </a>
+                                                                </div>
+                                                            </td>
+                                                            <td>'.$row['isbn'].'</td>
+                                                            <td>'.$row['title'].'</td>
+                                                            <td>'.$row['author'].'</td>
+                                                            <td>'.$row['year'].'</td>
+                                                            <td>'.$row['type'].'</td>
+                                                            <td>'.$row['nb_copy'].'</td>
+                                                            <td>'.$row['price'].' €'.'</td>
+                                                        </tr>';
+                                                    }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -248,28 +246,7 @@ $data = $stmt->fetchAll();
 
     </div>
 
-    <!-- Jquery JS-->
-    <script src="vendor/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js">
-    </script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
-    </script>
-
-    <section class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <section class="modal fade" id="modal-form" tabclients="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg">
                <div id="form" class="modal-content modal-popup">
 
@@ -284,45 +261,23 @@ $data = $stmt->fetchAll();
 
                                         <!-- NAV TABS -->
                                         <ul class="nav nav-tabs" role="tablist">
-                                             <li class="active"><a href="#addbook" aria-controls="sign_up" role="tab" data-toggle="tab">Ajouter une réservations</a></li>
+                                             <li class="active"><a href="#addbook" aria-controls="sign_up" role="tab" data-toggle="tab">Ajouter un libre a la librairie</a></li>
                                         </ul>
 
                                         <!-- TAB PANES -->
                                         <div class="tab-content">
                                              <div role="tabpanel" id="addbook">
-                                             <?php
-                                                $books = $pdo->prepare("SELECT * FROM books");
-                                                $books->execute();
-                                                $data_books = $books->fetchAll();
-                                                
-                                                $clients = $pdo->prepare("SELECT * FROM clients");
-                                                $clients->execute();
-                                                $data_clients = $clients->fetchAll();
-                                                echo '<html>
-                                                <form action="addbooking.php" method="post">';
-                                                    
-                                                echo '<label for="livre">Livre : </label>
-                                                <select id="livre" name="livre">';
-                                                foreach($data_books as $book){
-                                                    if($book["nb_copy"] > 0){
-                                                        echo '<option value="'.$book["id"].'">'.$book["id"]." - ".$book["title"].' - x'.$book["nb_copy"].'</option>';
-                                                    }
-                                                }
-                                                echo '
-                                                </br></select><br></br>
-                                                <label for="client">Client : </label>
-                                                <select id="client" name="client">';
-                                                foreach($data_clients as $client){
-                                                    echo '<option value="'.$client["id"].'">'.$client["id"]." - ".$client["first_name"].' '.$client["last_name"].'</option>';
-                                                }
-                                                echo '
-                                                </br></select><br></br>
-                                                Début réservation : <input type="date" id="start" name="start" required><br></br>
-                                                Fin réservation : <input type="date" id="end" name="end" required><br></br>
-                                                <input id="submit" name="submit" type="submit">
-                                                </form>
-                                                </html>';
-                                            ?>
+                                                <form action="addbook.php" method="post">
+                                                    <input type="text" class="form-control" name="isbn" placeholder="ISBN" required>
+                                                    <select id="sex" class="form-control"  name="type" placeholder="Type" required>
+                                                        <option value="manga">Manga</option>
+                                                        <option value="bd">BD</option>
+                                                    </select>
+                                                    <input type="int" class="form-control" name="price" placeholder="Prix" required>
+                                                    <input type="int" class="form-control" name="account" placeholder="Quantité" required>
+                                                    <input type="submit" class="form-control" name="submit" value="Ajout du livre">
+                                                  </form>
+                                             </div>
                                         </div>
                                    </div>
 
@@ -333,12 +288,11 @@ $data = $stmt->fetchAll();
                </div>
           </div>
      </section>
-    
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>   
     <!-- Vendor JS       -->
     <script src="vendor/slick/slick.min.js">
     </script>
@@ -355,28 +309,32 @@ $data = $stmt->fetchAll();
     <script src="vendor/select2/select2.min.js">
     </script>
 
-    <script>
-        function myFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-                }       
-            }
-        }
-    </script>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
     <!-- Main JS-->
     <script src="js/main.js"></script>
+
 </body>
 
 </html>

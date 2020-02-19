@@ -1,3 +1,13 @@
+<?php
+session_start();
+$pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
+$data_admin = $pdo->prepare("SELECT * FROM clients WHERE address_mail = :address_mail");
+$data_admin->bindParam(':address_mail', $_SESSION['email'], PDO::PARAM_STR);
+$data_admin->execute();
+if($data_admin->fetch()["salaried"] == false){
+    header("Location: /index.php");
+}
+?>
 <html>
 <head>
     <!-- Required meta tags-->
@@ -33,15 +43,12 @@
 </head>
 </html>
 <?php
-session_start();
-// if(isset($_SESSION["email"])){
+if(isset($_SESSION["email"])){
     $pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
     $query = $pdo->prepare("SELECT * FROM books WHERE id = :id");
     $query->bindParam(':id', $_GET['id'], PDO::PARAM_STR);
     $query->execute();
     $data = $query->fetch();
-    // $data = $pdo->query("SELECT * FROM clients WHERE address_mail = "+$_SESSION["email"])->fetchAll();
-    // if($data["salaried"] == 1){
         echo '<html>
         <form action="#" method="post">
         <input type="text" class="form-control" rows="5" cols="133"  name="isbn" placeholder="isbn" value="'.$data['isbn'].'" required><br>
@@ -66,7 +73,7 @@ session_start();
                 header('Location: stocks.php');
             }
         }
-// }else{
-    // header("Location: index.php");
-// }
+}else{
+    header("Location: index.php");
+}
 ?>

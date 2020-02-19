@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     
@@ -5,7 +8,7 @@
 <!-- Start: head Section -->
 <?php include("head.php"); ?>
 <!-- End: head Section -->
-
+<title>Manga++ | Contact</title>
 
 <body class="layout-v3">
 
@@ -128,7 +131,7 @@
                                                 <div class="row">
                                                     <div class="col-md-11">
                                                         <div class="contact-form bg-light margin-right">
-                                                            <h2>Envoyer nous un message</h2>
+                                                            <h2>Envoyez nous un message</h2>
                                                             <span class="underline left"></span>
                                                             <div class="contact-fields">
                                                                 <form id="contact" name="contact" action="http://libraria.demo.presstigers.com/contact.html" method="post" >
@@ -165,7 +168,10 @@
                                                                             </div>
                                                                         </div>
                                                                         <div id="success">
-                                                                            <span>Votre message a bien été envoyé! Notre équipe vous contactera bientôt.</span>
+                                                                            <span>
+                                                                                <?php
+                                                                                ?>
+                                                                            </span>
                                                                         </div>
 
                                                                         <div id="error">
@@ -188,62 +194,6 @@
             </div>
         </div>
         <!-- End: Contact Us Section -->
-
-        <!-- Start: Social Network -->
-        <!-- <section class="social-network section-padding">
-            <div class="container">
-                <div class="center-content">
-                    <h2 class="section-title">Follow Us</h2>
-                    <span class="underline center"></span>
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <ul>
-                    <li>
-                        <a class="facebook" href="#" target="_blank">
-                            <span>
-                                <i class="fa fa-facebook-f"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="twitter" href="#" target="_blank">
-                            <span>
-                                <i class="fa fa-twitter"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="google" href="#" target="_blank">
-                            <span>
-                                <i class="fa fa-google-plus"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="rss" href="#" target="_blank">
-                            <span>
-                                <i class="fa fa-rss"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="linkedin" href="#" target="_blank">
-                            <span>
-                                <i class="fa fa-linkedin"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="youtube" href="#" target="_blank">
-                            <span>
-                                <i class="fa fa-youtube"></i>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section> -->
-        <!-- End: Social Network -->
 
         <!-- Start: Footer Section-->
         <?php include("footer.php"); ?>

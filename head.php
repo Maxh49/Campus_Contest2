@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
 
         <!-- Title -->
-        <title>Manga++ | Accueil</title>
+        
 
         <!-- Favicon -->
         <link href="images/favicon.png" rel="icon" type="image/x-icon" />
@@ -20,11 +20,4 @@
 
         <!-- Stylesheet -->
         <link href="style.css" rel="stylesheet" type="text/css" />
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="js/html5shiv.min.js"></script>
-        <script src="js/respond.min.js"></script>
-        <![endif]-->
     </head>

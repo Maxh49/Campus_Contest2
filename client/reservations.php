@@ -1,6 +1,6 @@
 <?php
 $pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
-$stmt = $pdo->prepare("SELECT * FROM books WHERE type ='manga'");
+$stmt = $pdo->prepare("SELECT * FROM booking WHERE");
 $stmt->execute();
 $data = $stmt->fetchAll();
 ?>
@@ -23,14 +23,14 @@ $data = $stmt->fetchAll();
         <section class="page-banner services-banner">
             <div class="container">
                 <div class="banner-header">
-                    <h2>Univers Mangas</h2>
+                    <h2>Mes réservations</h2>
                     <span class="underline center"></span>
-                    <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
+                    <p class="lead">Gerer mes réservations</p>
                 </div>
                 <div class="breadcrumb">
                     <ul>
                         <li><a href="index.php">Accueil</a></li>
-                        <li>Mangas</li>
+                        <li>Mes réservations</li>
                     </ul>
                 </div>
             </div>
@@ -47,21 +47,6 @@ $data = $stmt->fetchAll();
                             <section class="search-filters">
                             </section>
                             <!-- End: Search Section -->
-                            
-                            <div class="filter-options margin-list">
-                                <div class="row">                                            
-                                    <div class="col-md-9 col-sm-3">
-                                        <input id="myInput" onkeyup="myFunction()" class="form-control" type="text" placeholder="Rechercher par titre ..." aria-label="Search">
-                                    </div>
-                                    <div class="col-md-3 col-sm-3">
-                                        <select name="orderby">
-                                            <option selected="selected">Trier par prix croissant</option>
-                                            <option>Trier par prix décroissant</option>
-                                            <option>Trier par nouvauté</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="booksmedia-fullwidth">
                             <?php
                                 foreach ($data as $row) {
@@ -70,7 +55,9 @@ $data = $stmt->fetchAll();
                                     //     $title_concac = substr($row['title'].' ...', 0, 30); 
                                     // }
                                     $resume_concac = substr($row['resume'], 0, 160); 
-                                    
+                                    $start= $row['start'];
+                                    $end= $row['end'];
+                                    $echeance= $end - $start;
                                    echo "<ul class='myTable'>
                                         <li>
                                             <figure>
@@ -86,8 +73,8 @@ $data = $stmt->fetchAll();
                                                     <div class='actions'>
                                                         <ul>
                                                             <li>
-                                                                <a href='mangas_details.php' target='_blank' data-toggle='blog-tags' data-placement='top' title='Réserver'>
-                                                                    ".$row['price']." € <i class='fa fa-shopping-cart'></i>
+                                                                <a href='#' target='_blank' data-toggle='blog-tags' data-placement='top'>
+                                                                    ".$echeance." € <i class='fa fa-shopping-cart'></i>
                                                                 </a>
                                                             </li>
                                                         </ul>

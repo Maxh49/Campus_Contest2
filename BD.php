@@ -1,13 +1,14 @@
 <?php
+session_start();
 $pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
-$stmt = $pdo->prepare("SELECT * FROM books WHERE type ='bd'");
+$stmt = $pdo->prepare("SELECT * FROM books WHERE type ='bd' AND nb_copy >= 1");
 $stmt->execute();
-$data = $stmt->fetchAll();
+$data_bd = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
 <html lang="zxx">
-    
+<title>Manga++ | Bande dessinée</title>    
 
 <!-- Start: head Section -->
     <?php include("head.php"); ?>
@@ -23,14 +24,14 @@ $data = $stmt->fetchAll();
         <section class="page-banner services-banner">
             <div class="container">
                 <div class="banner-header">
-                    <h2>Univers BD's</h2>
+                    <h2>Univers Bande dessinée</h2>
                     <span class="underline center"></span>
-                    <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
+                    <p class="lead">Liste des bandes dessinées disponibles.</p>
                 </div>
                 <div class="breadcrumb">
                     <ul>
                         <li><a href="index.php">Accueil</a></li>
-                        <li>BD's</li>
+                        <li>Univers Bande dessinée</li>
                     </ul>
                 </div>
             </div>
@@ -64,27 +65,23 @@ $data = $stmt->fetchAll();
                             </div>
                             <div class="booksmedia-fullwidth">
                                 <?php
-                                    foreach ($data as $row) {
-                                        // $length = strlen($row['title']);
-                                        // if ($length> 30){
-                                        //     $title_concac = substr($row['title'].' ...', 0, 30); 
-                                        // }
+                                    foreach ($data_bd as $row) {
                                     $resume_concac = substr($row['resume'], 0, 160); 
                                     echo "<ul>
                                             <li>
                                                 <figure>
-                                                    <a href=mangas_details.php?id=".$row['id']."><img src='".$row['url_picture']."' alt='Book'></a>
+                                                    <a href='bd_redirect.php?id=".$row['id']."'><img src='".$row['url_picture']."' alt='Book'></a>
                                                     <figcaption>
                                                         <header>
-                                                            <h4 small><a href=mangas_details.php?id=".$row['id'].">".$row['title']."</a></h4 small>
+                                                            <h4 small><bd_redirect.php?id=".$row['id'].">".$row['title']."</a></h4 small>
                                                             <p><strong>Author: </strong>"  .$row['author']."</p>
                                                             <p><strong>ISBN: </strong>"  .$row['isbn']."</p>
                                                         </header>
-                                                        <p>".$resume_concac.' ...'."</p>
+                                                        <p>".$resume_concac.'...'."</p>
                                                         <div class='actions'>
                                                             <ul>
                                                                 <li>
-                                                                    <a href='mangas_details.php' target='_blank' data-toggle='blog-tags' data-placement='top' title='Réserver'>
+                                                                    <a href='bd_redirect.php?id=".$row['id']."' data_bd-toggle='blog-tags' data_bd-placement='top' title='Réserver'>
                                                                         ".$row['price']." € <i class='fa fa-shopping-cart'></i>
                                                                     </a>
                                                                 </li>

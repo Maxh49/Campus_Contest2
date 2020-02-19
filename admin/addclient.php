@@ -1,29 +1,15 @@
 <?php
 session_start();
-// if(isset($_SESSION["email"])){
+$pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
+$data_admin = $pdo->prepare("SELECT * FROM clients WHERE address_mail = :address_mail");
+$data_admin->bindParam(':address_mail', $_SESSION['email'], PDO::PARAM_STR);
+$data_admin->execute();
+if($data_admin->fetch()["salaried"] == false){
+    header("Location: /index.php");
+}
+?>
+<?php
     $pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
-    // $data = $pdo->query("SELECT * FROM clients WHERE address_mail = "+$_SESSION["email"])->fetchAll();
-    // if($data["salaried"] == 1){
-        // echo '<html>
-        // <form action="#" method="post">
-        // <input type="text" class="form-control" name="lastname" placeholder="Nom" required><br>
-        // <input type="text" class="form-control" name="firstname" placeholder="Prénom" required><br>
-        // <input type="telephone" class="form-control" name="telephone" placeholder="Téléphone" required><br>
-        // <input type="text" class="form-control" name="address" placeholder="Adresse" required><br>
-        // <input type="text" class="form-control" name="moreaddress" placeholder="Complèment d adresse"><br>
-        // <input type="text" class="form-control" name="cp" placeholder="Code postal" required><br>
-        // <input type="text" class="form-control" name="city" placeholder="Ville" required><br>
-        // <input type="text" class="form-control" name="country" placeholder="Pays" required><br>
-        // <select id="sex" class="form-control"  name="sex" placeholder="Sexe" required><br>
-        // <option value="0">Homme</option>
-        // <option value="1">Femme</option>
-        // </select><br>
-        // <input type="date" class="form-control" name="birthdate" placeholder="Date de naissance" required><br>
-        // <input type="email" class="form-control" name="email" placeholder="Email" required><br>
-        // <input type="password" class="form-control" name="password" placeholder="Mot de passe" required><br>
-        // <input type="submit" class="form-control" name="submit" value="Ajouter">
-        // </form>
-        // </html>';
         if(isset($_POST['submit'])){
             $query = $pdo->prepare("SELECT address_mail FROM clients WHERE address_mail = :email");
             $query->bindParam(':email', $_POST['email'], PDO::PARAM_STR);
@@ -47,13 +33,10 @@ session_start();
                 $stmt2->bindParam(':phone_number', $_POST['telephone']);
                 if($stmt2->execute()){
                     echo "Client ajouté !";
-                    header('Location: index.php');
+                    header('Location: clients.php');
                 }
             }else{
                 echo "Adresse mail déjà utilisé";
             }
         }
-// }else{
-    // header("Location: index.php");
-// }
 ?>

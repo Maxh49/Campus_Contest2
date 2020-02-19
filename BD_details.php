@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<?php
+        session_start();
+        $pdo_bd = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
+        $stmt_bd = $pdo_bd->prepare("SELECT * FROM books WHERE id =".$_SESSION["id_bd"]);
+        $stmt_bd->execute();
+        $data_bd = $stmt_bd->fetch();
+        ?>
+        <!DOCTYPE html>
 <html lang="zxx">
     
 
@@ -9,20 +16,22 @@
     <body class="layout-v3">
     
         <!-- Start: Header Section -->
-        <?php include("header.php"); ?>
+        <?php include("header.php"); 
+        ?>
         <!-- End: Header Section -->
 
         <!-- Start: Page Banner -->
         <section class="page-banner services-banner">
             <div class="container">
                 <div class="banner-header">
-                    <h2>Nom du livre</h2>
+                    <h2><?php echo $data_bd["title"];?></h2>
                     <span class="underline center"></span>
                 </div>
                 <div class="breadcrumb">
                     <ul>
                         <li><a href="index.php">Accueil</a></li>
-                        <li>Nom du livre</li>
+                        <li><a href="bd.php">Univers Bande dessinée</a></li>
+                        <li><?php echo $data_bd["title"];?></li>
                     </ul>
                 </div>
             </div>
@@ -43,46 +52,32 @@
                             </div>
                             <div class="booksmedia-detail-box">
                                 <div class="detailed-box">
-                                    <div class="col-xs-12 col-sm-5 col-md-3">
+                                    <div>
                                         <div class="post-thumbnail">
-                                            <img src="images/books-media/detail-page/detail-page-image.jpg" alt="Book Image">
+                                            <img src="<?php echo $data_bd["url_picture"];?>" alt="Book Image">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-7 col-md-6">
                                         <div class="post-center-content">
-                                            <h2>The Great Gatsby</h2>
-                                            <p><strong>Author:</strong> F. Scott Fitzgerald</p>
-                                            <p><strong>ISBN:</strong> 9781581573268, 9780062419385</p>
-                                            <p><strong>Rating:</strong> </p>
-                                            <p><strong>Edition:</strong> First edition</p>
-                                            <p><strong>Publisher:</strong> New York : Shaye Areheart Books, c2008</p>
-                                            <p><strong>Length:</strong> 518 pages.</p>
-                                            <p><strong>Format:</strong> DVD</p>
-                                            <p><strong>Language Note:</strong> Icelandic dialogue; English subtitles.</p>
-                                            <p><strong>Genre :</strong> Feature films, Fiction films, Drama</p>
-                                            <p><strong>Topics:</strong> Friendship, Bullies, Pranks, School</p>
+                                            <h2><?php echo $data_bd["title"];?></h2>
+                                            <p><strong>Auteur : </strong><?php echo $data_bd["author"];?></p>
+                                            <p><strong>ISBN : </strong><?php echo $data_bd["isbn"];?></p>
+                                            <p><strong>Éditeur: </strong><?php echo $data_bd["title"];?></p>
                                             <div class="actions">
                                                 <ul>
                                                     <li>
-                                                        <a href="#" target="_blank" data-toggle="blog-tags" data-placement="top" title="" data-original-title="Réserver">
-                                                            9,99 € <i class="fa fa-shopping-cart"></i>
+                                                        <a href="reservation.php?id=<?php echo $data_bd["id"];?>" data_bd-toggle="blog-tags" data_bd-placement="top" title="" data_bd-original-title="Réserver">
+                                                        <?php echo $data_bd["price"];?> € <i class="fa fa-shopping-cart"></i>
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-3 ">
-                                        <div class="post-right-content">
-                                            <h4>Disponible ou non?</h4>
-                                            <p><strong>Total Copies:</strong> 01</p>
-                                            <p><strong>Total Disponible:</strong>  01</p>
-                                        </div>
-                                    </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <p><strong>Summary:</strong> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. </p>
+                                <p><strong>Résumé :</strong> <?php echo $data_bd["resume"];?> </p>
                             </div>
                         </div>
                     </div>

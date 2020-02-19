@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="zxx">
-
+<title>Manga++ | Accueil</title>
 <!-- Start: head Section -->
-<?php include("head.php"); ?>
+<?php
+session_start();
+include("head.php"); ?>
 <!-- End: head Section -->
 
     <body class="layout-v3">

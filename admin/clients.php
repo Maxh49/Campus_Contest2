@@ -1,5 +1,13 @@
 <?php
+session_start();
 $pdo = new PDO('mysql:host=109.234.164.30:3306;dbname=goco9020_campuscontest2;charset=UTF8', "goco9020", "KPMgKaHKeYCU");
+$data_admin = $pdo->prepare("SELECT * FROM clients WHERE address_mail = :address_mail");
+$data_admin->bindParam(':address_mail', $_SESSION['email'], PDO::PARAM_STR);
+$data_admin->execute();
+$data_final = $data_admin->fetch();
+if($data_final["salaried"] == false){
+    header("Location: /clients.php");
+}
 $stmt = $pdo->prepare("SELECT * FROM clients");
 $stmt->execute();
 $data = $stmt->fetchAll();
@@ -7,10 +15,8 @@ $data = $stmt->fetchAll();
 // $stmt2->execute();
 // $data2 = $stmt2->fetch();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags-->
     <meta charset="UTF-8">
@@ -20,7 +26,7 @@ $data = $stmt->fetchAll();
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Tables</title>
+    <title>Manga++ - Gestion des Clients</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -52,7 +58,7 @@ $data = $stmt->fetchAll();
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.php">
+                        <a class="logo" href="clients.php">
                             <img src="images/icon/logo.png" alt="Manga ++" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
@@ -89,7 +95,7 @@ $data = $stmt->fetchAll();
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="index.php">
+                <a href="clients.php">
                     <img src="images/icon/logo.png" alt="Manga ++" />
                     Manga ++
                 </a>
@@ -117,8 +123,8 @@ $data = $stmt->fetchAll();
 
         <!-- PAGE CONTAINER-->
         <div class="page-container">
-<!-- HEADER DESKTOP-->
-<header class="header-desktop">
+        <!-- HEADER DESKTOP-->
+        <header class="header-desktop">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
@@ -126,43 +132,27 @@ $data = $stmt->fetchAll();
                             <div class="header-button">
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
-                                        <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                        </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">john doe</a>
+                                            <a class="js-acc-btn" href="#"><?php echo $data_final["first_name"]." ".$data_final["last_name"];?></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
-                                                <div class="image">
-                                                    <a href="#">
-                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                                    </a>
-                                                </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">john doe</a>
+                                                        <a href="#"><?php echo $data_final["first_name"]." ".$data_final["last_name"];?></a>
                                                     </h5>
-                                                    <span class="email">johndoe@example.com</span>
+                                                    <span class="email"><?php echo $data_final["address_mail"];?></span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                                    <a href="../informations.php">
+                                                        <i class="zmdi zmdi-account"></i>Mes informations</a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                                <a href="../index.php?out=true">
+                                                    <i class="zmdi zmdi-power"></i>Déconnexion</a>
                                             </div>
                                         </div>
                                     </div>
@@ -187,7 +177,7 @@ $data = $stmt->fetchAll();
                                 <h3 class="title-5 m-b-35">Gestion des clients</h3>
                                 <div class="table-data__tool">
                                     <div class="table-data__tool-left">
-                                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par Nom/Prénom/Mail ..." title="Type in a name">
+                                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher par Nom/Prénom" title="Type in a name">
                                     </div>
                                     <div class="table-data__tool-right">
                                         <a href='#' data-toggle='modal' data-target='#modal-form'><button class="au-btn au-btn-icon au-btn--green au-btn--small">
@@ -277,7 +267,7 @@ $data = $stmt->fetchAll();
 
     </div>
 
-    <section class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <section class="modal fade" id="modal-form" tabclients="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg">
                <div id="form" class="modal-content modal-popup">
 
@@ -348,26 +338,29 @@ $data = $stmt->fetchAll();
     <script src="vendor/select2/select2.min.js">
     </script>
 
-    <script>
-        function myFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1,6];
-                if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-                }       
-            }
-        }
-    </script>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
     <!-- Main JS-->
     <script src="js/main.js"></script>
 
